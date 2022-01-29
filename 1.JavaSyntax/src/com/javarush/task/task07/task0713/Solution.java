@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 import static java.lang.Integer.parseInt;
 
@@ -19,32 +20,34 @@ public class Solution {
         List<Integer> listDividedOnThree = new ArrayList<>();
         List<Integer> listOthers = new ArrayList<>();
         List<Integer> listInitial = new ArrayList<>(20);
+        Scanner scanner = new Scanner(System.in);
 
-        for (int i = 0; i < 20; i++) {
-            Scanner scanner = new Scanner(System.in);
-            Integer s = scanner.nextInt();
-            listInitial.add(s);
-        }
+        IntStream.range(0, 20)
+                .forEach(i -> listInitial.add(scanner.nextInt()));
 
         listInitial.forEach(next -> {
-            if (next % 2 == 0) {
+            if (next % 2 == 0 & next % 3 == 0) {
+                listDividedOnTwo.add(next);
+                listDividedOnThree.add(next);
+            } else if (next % 2 == 0) {
                 listDividedOnTwo.add(next);
             } else if (next % 3 == 0) {
-                listDividedOnThree.add(next);
-            } else if (next % 2 == 0 | next % 3 == 0) {
-                listDividedOnTwo.add(next);
                 listDividedOnThree.add(next);
             } else {
                 listOthers.add(next);
             }
         });
 
+
         System.out.println("Initial list:");
         Solution.printList(listInitial);
+
         System.out.println("Numbers that divided on three:");
         Solution.printList(listDividedOnThree);
+
         System.out.println("Numbers that divided on two:");
         Solution.printList(listDividedOnTwo);
+
         System.out.println("Others numbers");
         Solution.printList(listOthers);
     }
